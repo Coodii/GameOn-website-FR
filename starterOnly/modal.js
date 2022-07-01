@@ -7,6 +7,7 @@ function editNav() {
   }
 }
 
+
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
@@ -20,4 +21,8 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
+// close modal form
+function closeModal() {
+  modalbg.style.display = "none";
+}
 
