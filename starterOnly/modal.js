@@ -49,6 +49,10 @@ function checkFirstName() {
     return true;
     // errror message formData[0].setAttribute(data-error);
 }
+  else {
+    formData[0].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
+    formData[0].setAttribute("data-error-visible", "true");
+  }
 }
 
 //check if the last name contains at least 2 caracters
@@ -56,6 +60,10 @@ function checkLastName(){
   if (lastName.value.length >= 2){
     return true;
 }
+  else {
+    formData[1].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+    formData[1].setAttribute("data-error-visible", "true");
+  }
 }
 
 
@@ -64,6 +72,10 @@ function checkEmail(){
   const mailformat = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
   if (email.value.match(mailformat)){
     return true;
+  }
+  else {
+    formData[2].setAttribute("data-error", "Merci de renseigner un mail correct.");
+    formData[2].setAttribute("data-error-visible", "true");
   }
 }
 
@@ -83,7 +95,11 @@ function checkAge(){
      || yearDifference === 16 && (monthDifference > 0 || monthDifference === 0 && dayDifference >= 0))
     {
       return true;
-    }  
+    }
+  else {
+    formData[3].setAttribute("data-error", "Vous n'avez pas l'âge requis pour vous inscrire.");
+    formData[3].setAttribute("data-error-visible", "true");
+  }
 }
 
 
@@ -92,6 +108,10 @@ function checkInteger(){
   var quantityValue = Number(quantity.value);
   if (typeof quantityValue === 'number' && quantity.value != ''){
     return true;
+  }
+  else {
+    formData[4].setAttribute("data-error", "Merci de séléctionner une valeur numérique.");
+    formData[4].setAttribute("data-error-visible", "true");
   }
   }
 
@@ -103,6 +123,8 @@ function checkRadio(){
         return true;
       }
     }
+    formData[5].setAttribute("data-error", "Merci de sélectionné un tournoi.");
+    formData[5].setAttribute("data-error-visible", "true");
     return false;
 }
 
@@ -112,6 +134,8 @@ function checkCheckbox(){
     return true;
   }
   else{
+    formData[6].setAttribute("data-error", "Vous devez vérifier que vous acceptez les termes et conditions.");
+    formData[6].setAttribute("data-error-visible", "true");
     return false;
   }
 }
@@ -120,14 +144,23 @@ function validate(){
   const isFirsNameValid = checkFirstName();
   const isLastNameValid = checkLastName();
   const isEmailValid = checkEmail();
-  const isRadioSelected = checkRadio();
-  const isInteger = checkInteger();
-  const isChecked = checkCheckbox();
   const isOver16 = checkAge();
+  const isInteger = checkInteger();
+  const isRadioSelected = checkRadio();
+  const isChecked = checkCheckbox();
+  
+  const listIsCorrect = [isFirsNameValid, isLastNameValid, isEmailValid, isOver16, isInteger, isRadioSelected, isChecked];
   if(isFirsNameValid && isLastNameValid && isEmailValid && isRadioSelected && isInteger && isChecked && isOver16){
       return true;
   }
-  else {
+  else { 
+    for(i=0; i < listIsCorrect.length; i++){
+      if(listIsCorrect[i] === true){
+        formData[i].setAttribute("data-error-visible", "false");
+      }
+    }
     return false;
   }
 }
+  
+    
