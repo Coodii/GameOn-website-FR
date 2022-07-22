@@ -22,7 +22,7 @@ const quantity = document.getElementById("quantity");
 const radioList = document.getElementsByName("location");
 const checkbox =  document.getElementById("checkbox1");
 
-
+const isText = /[A-Za-z-éçèï ]$/;
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -32,7 +32,7 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
-
+// list clo
 exitForm[0].addEventListener('click', closeModal);
 
 
@@ -45,7 +45,7 @@ function closeModal() {
 
 //check if the last name contains at least 1 caracters
 function checkFirstName() {
-  if (firstName.value.length >= 2){
+  if (firstName.value.length >= 2 && firstName.value.match(isText)){
     return true;
     // errror message formData[0].setAttribute(data-error);
 }
@@ -57,7 +57,7 @@ function checkFirstName() {
 
 //check if the last name contains at least 2 caracters
 function checkLastName(){
-  if (lastName.value.length >= 2){
+  if (lastName.value.length >= 2 && lastName.value.match(isText)){
     return true;
 }
   else {
@@ -150,11 +150,13 @@ function validate(){
   const isChecked = checkCheckbox();
   
   const listIsCorrect = [isFirsNameValid, isLastNameValid, isEmailValid, isOver16, isInteger, isRadioSelected, isChecked];
+
   if(isFirsNameValid && isLastNameValid && isEmailValid && isRadioSelected && isInteger && isChecked && isOver16){
-      return true;
+    
+    return false;
   }
   else { 
-    for(i=0; i < listIsCorrect.length; i++){
+    for(i = 0; i < listIsCorrect.length; i++){
       if(listIsCorrect[i] === true){
         formData[i].setAttribute("data-error-visible", "false");
       }
