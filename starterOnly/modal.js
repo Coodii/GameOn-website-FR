@@ -21,6 +21,7 @@ const birthDate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
 const radioList = document.getElementsByName("location");
 const checkbox =  document.getElementById("checkbox1");
+const modalBody = document.querySelector(".modal-body");
 
 const isText = /[A-Za-z-éçèï ]$/;
 
@@ -89,7 +90,6 @@ function checkAge(){
   const yearDifference = currentDate.getFullYear() - birthYear;
   const monthDifference = currentDate.getMonth() + 1 - birthMonth;
   const dayDifference = currentDate.getDate()- birthDay;
-  console.log(monthDifference + "-" + dayDifference);
 
   if(yearDifference > 16 && yearDifference != currentDate.getFullYear()
      || yearDifference === 16 && (monthDifference > 0 || monthDifference === 0 && dayDifference >= 0))
@@ -105,7 +105,7 @@ function checkAge(){
 
 //check if the quantity value is a number and not empty
 function checkInteger(){
-  var quantityValue = Number(quantity.value);
+  let quantityValue = Number(quantity.value);
   if (typeof quantityValue === 'number' && quantity.value != ''){
     return true;
   }
@@ -118,7 +118,7 @@ function checkInteger(){
 
 //check that a radio button is checked
 function checkRadio(){
-    for (var i=0; i<radioList.length; i++){
+    for (let i=0; i<radioList.length; i++){
       if (radioList[i].checked){
         return true;
       }
@@ -140,6 +140,8 @@ function checkCheckbox(){
   }
 }
 
+
+//
 function validate(){
   const isFirsNameValid = checkFirstName();
   const isLastNameValid = checkLastName();
@@ -152,9 +154,26 @@ function validate(){
   const listIsCorrect = [isFirsNameValid, isLastNameValid, isEmailValid, isOver16, isInteger, isRadioSelected, isChecked];
 
   if(isFirsNameValid && isLastNameValid && isEmailValid && isRadioSelected && isInteger && isChecked && isOver16){
+    closeModal();
     
+    while (modalBody.firstChild) {
+      modalBody.removeChild(modalBody.lastChild);
+    }
+
+    const title = document.createElement('h1');
+    const button = document.createElement('button');
+    button.className = "btn-submit";
+    button.innerHTML = "Fermer";
+    title.innerHTML = "Merci pour <br> votre inscription";
+    title.className= "text_modal";
+    modalBody.appendChild(title);
+    modalBody.appendChild(button);
+    setTimeout(() => {launchModal()}, 1000);
+    button.addEventListener('click', refresh);
     return false;
   }
+
+  
   else { 
     for(i = 0; i < listIsCorrect.length; i++){
       if(listIsCorrect[i] === true){
@@ -163,6 +182,12 @@ function validate(){
     }
     return false;
   }
+}
+
+
+//refresh the page
+function refresh(){
+  location.reload();
 }
   
     

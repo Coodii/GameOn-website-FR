@@ -518,6 +518,12 @@ footer {
   }
 }
 
+.text_modal{
+padding-top: 60%;
+padding-bottom: 60%;
+text-align: center;
+}
+
 @keyframes modalopen {
   from {
     opacity: 0;
