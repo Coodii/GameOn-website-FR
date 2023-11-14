@@ -33,7 +33,7 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
-// list clo
+// add listener on the close button
 exitForm[0].addEventListener('click', closeModal);
 
 
@@ -141,7 +141,7 @@ function checkCheckbox(){
 }
 
 
-//
+//check if all the inputs are correct
 function validate(){
   const isFirsNameValid = checkFirstName();
   const isLastNameValid = checkLastName();
@@ -173,7 +173,7 @@ function validate(){
     return false;
   }
 
-  
+  //remove incorrect error message
   else { 
     for(i = 0; i < listIsCorrect.length; i++){
       if(listIsCorrect[i] === true){
