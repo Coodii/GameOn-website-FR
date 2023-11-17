@@ -44,14 +44,13 @@ function closeModal() {
 
 
 
-//check if the last name contains at least 1 caracters
+//check if the last name contains at least 2 caracters
 function checkFirstName() {
   if (firstName.value.length >= 2 && firstName.value.match(isText)){
     return true;
-    // errror message formData[0].setAttribute(data-error);
 }
   else {
-    formData[0].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
+    formData[0].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du prénom (pas de chiffre).");
     formData[0].setAttribute("data-error-visible", "true");
   }
 }
@@ -62,7 +61,7 @@ function checkLastName(){
     return true;
 }
   else {
-    formData[1].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+    formData[1].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du nom (pas de chiffre).");
     formData[1].setAttribute("data-error-visible", "true");
   }
 }
